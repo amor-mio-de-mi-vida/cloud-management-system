@@ -8,7 +8,7 @@
         <div class="registerCard">
           <el-card class="box-card">
             <el-form :model="form" :rules="rules" ref="form" label-width="100px" class="register-form">
-                <el-form-item label="学号" prop="id">
+                <el-form-item label="邮箱" prop="id">
                     <el-col >
                         <el-input v-model="form.id" autocomplete="off"></el-input>
                     </el-col>
@@ -18,7 +18,7 @@
                         <el-input v-model="form.name" autocomplete="off"></el-input>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="我是" prop="role">
+                <!-- <el-form-item label="我是" prop="role">
                     <el-select v-model="form.role" placeholder="请选择">
                       <el-option
                         v-for="item in options"
@@ -27,7 +27,7 @@
                         :value="item.value">
                       </el-option>
                     </el-select>  
-                  </el-form-item>
+                  </el-form-item> -->
                 <el-form-item label="密码" prop="password">
                     <el-col>
                         <el-input type="password" v-model="form.password" autocomplete="off"></el-input>

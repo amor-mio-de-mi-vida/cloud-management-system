@@ -8,16 +8,16 @@
         <div class="login-box">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span class="login-title">🔐北航志愿实践星管理系统</span>
+              <span class="login-title">☁️云端管理系统</span>
             </div>
             <el-form :model="form" status-icon :rules="rules" ref="form" label-width="100px" class="demo-form">
-                <el-form-item label="学工号" prop="id">
+                <el-form-item label="邮箱" prop="id">
                   <el-input v-model="form.id" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                   <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="我是" prop="role">
+                <!-- <el-form-item label="我是" prop="role">
                   <el-select v-model="form.role" placeholder="请选择">
                     <el-option
                       v-for="item in options"
@@ -26,7 +26,7 @@
                       :value="item.value">
                     </el-option>
                   </el-select>  
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('form')">登录</el-button>
                     <router-link :to="'/register/'" class="button1" style="text-decoration:none">
@@ -62,7 +62,7 @@
           },
           rules: {
             id: [
-              { required: true, message: '请输入学工号', trigger: 'blur' },
+              { required: true, message: '请输入邮箱', trigger: 'blur' },
             ],
             password : [
               { required: true, message: '请输入密码', trigger: 'blur' },

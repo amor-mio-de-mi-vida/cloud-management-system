@@ -2,6 +2,19 @@ from django.http import JsonResponse
 from backend.utils import *
 from django.contrib.auth import logout as dj_logout, login as dj_login
 import time
+import logging
+
+# 获取日志记录器
+logger = logging.getLogger(__name__)
+
+def log_view(request):
+    # 记录不同级别的日志
+    logger.debug('This is a debug message')
+    logger.info('This is an info message')
+    logger.warning('This is a warning message')
+    logger.error('This is an error message')
+    logger.critical('This is a critical message')
+    # ...
 
 def register(request):
     password = request.POST["password"]

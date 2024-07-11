@@ -4,14 +4,6 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
-class Scenario(models.Model):
-    ID = models.AutoField(primary_key=True, db_column='scenario_id')
-    name = models.CharField(max_length=128, db_column='name')
-    def __str__(self):
-        return self.ID
-    class Meta:
-        db_table = 'scenario'
-
 
 class Model(models.Model):
     ID = models.AutoField(primary_key=True, db_column='model_id')
@@ -20,7 +12,7 @@ class Model(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='owner')
     description = models.TextField(db_column='description')
     url = models.URLField(db_column='url')  # 推理文件
-    time = models.CharField(max_length=128, db_column='name')
+    time = models.CharField(max_length=128, db_column='time')
 
     def __str__(self):
         return self.ID
@@ -28,6 +20,14 @@ class Model(models.Model):
     class Meta:
         db_table = 'model'
 
+class Scenario(models.Model):
+    ID = models.AutoField(primary_key=True, db_column='scenario_id')
+    name = models.CharField(max_length=128, db_column='name')
+
+    def __str__(self):
+        return self.ID
+    class Meta:
+        db_table = 'scenario'
 
 class ModelScenario(models.Model):
     model_id = models.ForeignKey(Model, on_delete=models.CASCADE, db_column='model_id')
@@ -42,7 +42,7 @@ class Dataset(models.Model):
     name = models.CharField(max_length=128, db_column='name')
     version = models.CharField(max_length=128, db_column='version')
     description = models.CharField(max_length=128, db_column='description')
-    time = models.CharField(max_length=128, db_column='name')
+    time = models.CharField(max_length=128, db_column='time')
     type = models.CharField(max_length=128, db_column='type')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='owner')
 
