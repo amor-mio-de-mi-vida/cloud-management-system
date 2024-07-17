@@ -29,5 +29,7 @@ urlpatterns = [
     path("get_model_by_owner/", get_model_by_owner),
 ###################### 模型分发 ###########################
     path("get_all_nodes/", get_all_nodes),
-    path("dispatch_model/", dispatch_model)
+    path("dispatch_model/", dispatch_model),
+##################### 节点管理 ############################
+    path("add_node/", add_node)
 ]

@@ -65,9 +65,17 @@ class Node(models.Model):
     ID = models.AutoField(primary_key=True, db_column='node_id')
     name = models.CharField(max_length=128, db_column='name')
     description = models.CharField(max_length=128, db_column='description')
+    position = models.CharField(max_length=128, db_column='position')
+    hardware = models.CharField(max_length=128, db_column='hardware')
 
     def __str__(self):
         return self.ID
 
     class Meta:
         db_table = 'node'
+
+class NodeScenario(models.Model):
+    node_id = models.ForeignKey(Node, on_delete=models.CASCADE, db_column='node_id')
+    scenario_id = models.ForeignKey(Scenario, on_delete=models.CASCADE, db_column='scenario')
+    class Meta:
+        db_table = 'node_scenario'

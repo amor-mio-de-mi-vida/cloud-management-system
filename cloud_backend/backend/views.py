@@ -92,8 +92,8 @@ def add_dataset(request):
         owner=owner,
     )
     for scenario in scenarios:
-        scenario = Dataset.objects.get(name=scenario)
-        DatasetScenario.objects.create(dataset=dataset, scenario=scenario)
+        s = Scenario.objects.get(name=scenario)
+        DatasetScenario.objects.create(dataset=dataset, scenario=s)
     return JsonResponse({"status": 200})
 
 
@@ -144,8 +144,8 @@ def add_model(request):
         owner=owner,
     )
     for scenario in scenarios:
-        scenario = Dataset.objects.get(name=scenario)
-        ModelScenario.objects.create(model=model, scenario=scenario)
+        s = Scenario.objects.get(name=scenario)
+        ModelScenario.objects.create(model=model, scenario=s)
     return JsonResponse({"status": 200})
 
 
@@ -188,6 +188,21 @@ def get_model_by_owner(request):
     owner = User.objects.get(username=request.POST["name"])
     return User.objects.get(ID=owner)
 
+def add_node(request):
+    scenarios = request.POST["scenarios"]
+    for scenario in scenarios:
+        if not Scenario.objects.filter(name=scenario).exists():
+            Scenario.objects.create(name=scenario)
+    node = Node.objects.create(
+        name=request.POST["name"],
+        description=request.POST["description"],
+        position=request.POST["position"],
+        hardware=request.POST["hardware"],
+    )
+    for scenario in scenarios:
+        s = Scenario.objects.get(name=scenario)
+        NodeScenario.objects.create(node=node, scenario=s)
+    return JsonResponse({"status": 200})
 
 def get_all_nodes(request):
     return Node.objects.all()
