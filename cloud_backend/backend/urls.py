@@ -31,5 +31,8 @@ urlpatterns = [
     path("get_all_nodes/", get_all_nodes),
     path("dispatch_model/", dispatch_model),
 ##################### 节点管理 ############################
-    path("add_node/", add_node)
+    path("add_node/", add_node),
+    path("get_node_by_name/", get_node_by_name),
+    path("modify_node/", modify_node),
+    path("delete_node/", delete_node),
 ]

@@ -93,7 +93,7 @@ def add_dataset(request):
     )
     for scenario in scenarios:
         s = Scenario.objects.get(name=scenario)
-        DatasetScenario.objects.create(dataset=dataset, scenario=s)
+        DatasetScenario.objects.create(dataset_id=dataset, scenario_id=s)
     return JsonResponse({"status": 200})
 
 
@@ -111,7 +111,7 @@ def modify_dataset(request):
     dataset.time = time.strftime('%Y%m%d%H%M%S')
     dataset.type = request.POST["type"]
 
-    dataset_scenarios = DatasetScenario.objects.filter(dataset=dataset)
+    dataset_scenarios = DatasetScenario.objects.filter(dataset_id=dataset)
     for ds in dataset_scenarios:
         ds.delete()
     scenarios = request.POST["scenarios"]
@@ -119,7 +119,7 @@ def modify_dataset(request):
         s = Scenario.objects.get(name=scenario)
         if not s:
             s = Scenario.objects.create(name=scenario)
-        DatasetScenario.objects.create(dataset=dataset, scenario=s)
+        DatasetScenario.objects.create(dataset_id=dataset, scenario_id=s)
     return JsonResponse({"status": 200})
 
 def get_dataset_by_name(request):
@@ -145,7 +145,7 @@ def add_model(request):
     )
     for scenario in scenarios:
         s = Scenario.objects.get(name=scenario)
-        ModelScenario.objects.create(model=model, scenario=s)
+        ModelScenario.objects.create(model_id=model, scenario_id=s)
     return JsonResponse({"status": 200})
 
 
@@ -163,7 +163,7 @@ def modify_model(request):
     model.time = time.strftime('%Y%m%d%H%M%S')
     model.url = request.POST["url"]
 
-    model_scenario = ModelScenario.objects.filter(dataset=model)
+    model_scenario = ModelScenario.objects.filter(model_id=model)
     for ms in model_scenario:
         ms.delete()
     scenarios = request.POST["scenarios"]
@@ -171,7 +171,7 @@ def modify_model(request):
         s = Scenario.objects.get(name=scenario)
         if not s:
             s = Scenario.objects.create(name=scenario)
-        ModelScenario.objects.create(model=model, scenario=s)
+        ModelScenario.objects.create(model_id=model, scenario_id=s)
     return JsonResponse({"status": 200})
 
 def get_model_by_name(request):
@@ -202,6 +202,34 @@ def add_node(request):
     for scenario in scenarios:
         s = Scenario.objects.get(name=scenario)
         NodeScenario.objects.create(node=node, scenario=s)
+    return JsonResponse({"status": 200})
+
+def get_node_by_name(request):
+    return Node.objects.get(name=request.POST["name"])
+
+def modify_node(request):
+    id = request.POST["id"]
+    node = Node.objects.get(ID=id)
+    node.name = request.POST["name"]
+    node.description = request.POST["description"]
+    node.position = request.POST["position"]
+    node.hardware = request.POST["hardware"]
+
+    model_scenario = ModelScenario.objects.filter(node=node)
+    for ns in model_scenario:
+        ns.delete()
+    scenarios = request.POST["scenarios"]
+    for scenario in scenarios:
+        s = Scenario.objects.get(name=scenario)
+        if not s:
+            s = Scenario.objects.create(name=scenario)
+        NodeScenario.objects.create(node_id=node, scenario_id=s)
+    return JsonResponse({"status": 200})
+
+
+def delete_node(request):
+    node = Node.objects.get(name=request.POST["name"])
+    node.delete()
     return JsonResponse({"status": 200})
 
 def get_all_nodes(request):
